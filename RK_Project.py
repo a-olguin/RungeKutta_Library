@@ -39,6 +39,7 @@ def RK4_a_to_b(f_dot, init_value, step_size, integration_range):
 
     return output_array
 
+
 # scalar integration until steady state using Runge Kutta 4th order method
 def RK4_to_steady_state(f_dot, init_value, step_size, integration_range, acceptable_error, max_iter):
 
@@ -70,3 +71,14 @@ def RK4_to_steady_state(f_dot, init_value, step_size, integration_range, accepta
             last_steady_state = steady_state
 
     return steady_state
+
+	
+# calculate and return the 4 integration constants for RK4
+def RK4_calc_k(f_dot, f_input, f_i, step_size):
+	k1 = step_size * f_dot(f_input, f_i)
+	k2 = step_size * f_dot(f_input + step_size/2.0, f_i + k1/2.0)
+	k3 = step_size * f_dot(f_input + step_size/2.0, f_i + k2/2.0)
+	k4 = step_size * f_dot(f_input + step_size, f_i + k3)
+	
+	return np.array([k1, k2, k3, k4])
+	
